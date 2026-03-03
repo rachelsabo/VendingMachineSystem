@@ -1,0 +1,15 @@
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\bin\Debug\net8.0\VendingMachine.Application.deps.json
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\bin\Debug\net8.0\VendingMachine.Application.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\bin\Debug\net8.0\VendingMachine.Application.pdb
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\bin\Debug\net8.0\VendingMachine.Domain.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\bin\Debug\net8.0\VendingMachine.Domain.pdb
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.csproj.AssemblyReference.cache
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.AssemblyInfoInputs.cache
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.AssemblyInfo.cs
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.csproj.CoreCompileInputs.cache
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingM.38339596.Up2Date
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\refint\VendingMachine.Application.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\VendingMachine.Application.pdb
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Application\obj\Debug\net8.0\ref\VendingMachine.Application.dll

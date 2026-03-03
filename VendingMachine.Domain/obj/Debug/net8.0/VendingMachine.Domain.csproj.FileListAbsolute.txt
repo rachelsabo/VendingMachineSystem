@@ -1,0 +1,11 @@
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\bin\Debug\net8.0\VendingMachine.Domain.deps.json
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\bin\Debug\net8.0\VendingMachine.Domain.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\bin\Debug\net8.0\VendingMachine.Domain.pdb
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.AssemblyInfoInputs.cache
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.AssemblyInfo.cs
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.csproj.CoreCompileInputs.cache
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\refint\VendingMachine.Domain.dll
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\VendingMachine.Domain.pdb
+C:\Users\user1\Desktop\ראיונות\VendingMachineSystem\VendingMachine.Domain\obj\Debug\net8.0\ref\VendingMachine.Domain.dll
