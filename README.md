@@ -1,3 +1,5 @@
+<div dir="rtl" lang="he" style="text-align: right">
+
 ## מערכת VendingMachine – תרגיל בית
 
 פתרון זה מממש מערכת Backend לניהול מכונות מכירה (Vending Machines) והמלאי שלהן, באמצעות .NET 8 Web API ובמבנה של **Clean Architecture**.
@@ -20,7 +22,7 @@
 
 - **VendingMachine.Application**  
   שכבת האפליקציה (Use Cases):
-  -  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
+  - DTOs לשימוש ה‑API: `VendingMachineDto`, `ShelfDto`, `ProductDto`
   - `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
   - `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
     - יצירת מכונת מכירה
@@ -30,35 +32,26 @@
 
 - **VendingMachine.Infrastructure**  
   שכבת התשתית (Infrastructure):
-
+  - `InMemoryVendingMachineRepository` – מימוש In‑Memory של `IVendingMachineRepository` עם `ConcurrentDictionary<Guid, VendingMachine>`.
   - אין בסיס נתונים אמיתי, אין EF Core, ואין תלות חיצונית.
-  - מימוש In‑Memory של `IVendingMachineRepository` עם `ConcurrentDictionary<Guid, VendingMachine>`.
-
-
 
 - **VendingMachine.Api**  
   שכבת ה‑Web API (ASP.NET Core):
-  
-  - א. `VendingMachinesController` – Controller , שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.:
-
-  - ב. Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
+  - `VendingMachinesController` – Controller דק, שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.
+  - נקודות קצה (Endpoints):
+    - `POST /api/machines` – יצירת מכונה
+    - `GET  /api/machines/{machineId}` – שליפת מכונה
+    - `POST /api/machines/{machineId}/shelves` – הוספת מדף
+    - `POST /api/machines/{machineId}/shelves/{shelfId}/inventory` – טעינת מלאי למדף
+    - `POST /api/machines/{machineId}/purchase` – רכישת מוצר
+  - Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
     ```json
     {
       "code": "ERROR_CODE",
       "message": "Readable message"
     }
     ```
-
-  - ג. נקודות קצה (Endpoints):
-    - `POST /api/machines` – יצירת מכונה
-    - `GET  /api/machines/{machineId}` – שליפת מכונה
-    - `POST /api/machines/{machineId}/shelves` – הוספת מדף
-    - `POST /api/machines/{machineId}/shelves/{shelfId}/inventory` – טעינת מלאי למדף
-    - `POST /api/machines/{machineId}/purchase` – רכישת מוצר
-
-  - ד.  Swagger / OpenAPI מופעל בדיבוג.
-
-
+  - Swagger / OpenAPI מופעל בדיבוג.
 
 - **VendingMachine.Tests**  
   פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.
@@ -202,4 +195,5 @@ dotnet test
 - **איכות קוד** – שמות ברורים, הפרדת אחריות בין שכבות, תלות חד כיוונית (Domain ← Application ← Infrastructure ← Api).
 - **הרחבה עתידית** – אפשרות להוסיף קטגוריות/מוצרים/כללי עסק נוספים ומעבר ל‑DB אמיתי ללא שינוי בשכבות העליונות.
 
+</div>
 
