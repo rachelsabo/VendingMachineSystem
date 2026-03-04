@@ -24,9 +24,9 @@
 - **VendingMachine.Application**
     **שכבת האפליקציה (Use Cases):**
 
-   א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
-   ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
-   ג. `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
+-   א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
+-   ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
+-   ג. `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
     - יצירת מכונת מכירה
     - הוספת מדף
     - טעינת מלאי
@@ -43,9 +43,9 @@
 - **VendingMachine.Api**  
   **שכבת ה‑Web API (ASP.NET Core):**
   
-   א. `VendingMachinesController` – Controller , שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.:
+ -  א. `VendingMachinesController` – Controller , שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.:
 
-   ב. Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
+ -  ב. Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
     ```json
     {
       "code": "ERROR_CODE",
@@ -53,14 +53,14 @@
     }
     ```
 
-   ג. נקודות קצה (Endpoints):
+ -  ג. נקודות קצה (Endpoints):
     - `POST /api/machines` – יצירת מכונה
     - `GET  /api/machines/{machineId}` – שליפת מכונה
     - `POST /api/machines/{machineId}/shelves` – הוספת מדף
     - `POST /api/machines/{machineId}/shelves/{shelfId}/inventory` – טעינת מלאי למדף
     - `POST /api/machines/{machineId}/purchase` – רכישת מוצר
 
-   ד.  Swagger / OpenAPI מופעל בדיבוג.
+ -  ד.  Swagger / OpenAPI מופעל בדיבוג.
 
   **פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.**
 
@@ -69,7 +69,7 @@
 
 ### איך מריצים
 
-1. **שחזור תלויות, Build והרצת טסטים**
+-1. **שחזור תלויות, Build והרצת טסטים**
 
    ```bash
    dotnet restore
@@ -77,13 +77,13 @@
    dotnet test
    ```
 
-2. **הרצת ה‑API**
+-2. **הרצת ה‑API**
 
    ```bash
    dotnet run --project VendingMachine.Api
    ```
 
-3. **פתיחת Swagger UI**
+-3. **פתיחת Swagger UI**
 
    - ה‑API מאזין ל‑URL ולפורט המוגדרים ב‑`VendingMachine.Api/Properties/launchSettings.json` (לדוגמה `http://localhost:5088`).
    - כתובת Swagger (בדוגמה לעיל):
@@ -96,7 +96,7 @@
 ה‑Domain וה‑API תוכננו כך שיכסו את התרחישים מהתרגיל. יש גם טסט End‑to‑End (`EndToEnd_Scenarios_1_To_6`) בשכבת הטסטים שבודק אותם לוגית.
 
 1. **יצירת מכונת מכירה שתומכת עד 5 מדפים**
-   א. API: `POST /api/machines`
+-   א. API: `POST /api/machines`
      ```json
      {
        "name": "Main Lobby VM",
@@ -104,7 +104,7 @@
        "maxShelves": 5
      }
      ```
-   ב. Domain: קריאה ל‑`VendingMachineService.CreateVendingMachineAsync` שיוצר `VendingMachine` עם `MaxShelves = 5`.
+-  ב. Domain: קריאה ל‑`VendingMachineService.CreateVendingMachineAsync` שיוצר `VendingMachine` עם `MaxShelves = 5`.
 
 2. **הוספת 3 מדפים: שתייה 10, חטיפים 20, שתייה 15**
    - נניח שני סוגי קטגוריות (מזוהים לפי Guid):
@@ -126,7 +126,7 @@
    - Domain: `VendingMachine.AddShelf` מוסיף מדפים עד `MaxShelves` ומוודא שלא חורגים ממנו.
 
 3. **טעינת 5 בקבוקי מים על מדף השתייה הראשון**
-   א.  API: `POST /api/machines/{machineId}/shelves/{shelfId}/inventory`
+  - א.  API: `POST /api/machines/{machineId}/shelves/{shelfId}/inventory`
      ```json
      {
        "productId": "<waterProductId>",
@@ -135,22 +135,22 @@
        "quantity": 5
      }
      ```
-   ב. Domain: `VendingMachine.LoadInventory` → `Shelf.LoadProduct` מעדכן מלאי ומוודא קיבולת.
+  - ב. Domain: `VendingMachine.LoadInventory` → `Shelf.LoadProduct` מעדכן מלאי ומוודא קיבולת.
 
 4. **ניסיון לטעון צ'יפס על מדף שתייה → כישלון**
-   א. אותו Endpoint כמו בסעיף 3, אבל עם `productCategoryId = <snackCategoryId>`.
-   ב. Domain: `Shelf.ValidateProductCategory` זורק `InvalidProductCategoryException` אם הקטגוריה של המוצר לא תואמת את `ProductCategoryId` של המדף.
-   ג. API: ה‑Middleware ממפה את החריגה ל‑HTTP 400 עם קוד `INVALID_PRODUCT_CATEGORY`.
+  - א. אותו Endpoint כמו בסעיף 3, אבל עם `productCategoryId = <snackCategoryId>`.
+  - ב. Domain: `Shelf.ValidateProductCategory` זורק `InvalidProductCategoryException` אם הקטגוריה של המוצר לא תואמת את `ProductCategoryId` של המדף.
+  - ג. API: ה‑Middleware ממפה את החריגה ל‑HTTP 400 עם קוד `INVALID_PRODUCT_CATEGORY`.
 
 5. **ניסיון להוסיף מדף שישי → כישלון**
-  א. אחרי הוספת 5 מדפים, עוד קריאה ל‑`POST /api/machines/{machineId}/shelves`:
-  ב. Domain: `VendingMachine.AddShelf` בודק אם כמות המדפים הקיימת >= `MaxShelves` וזורק `MaxShelvesReachedException`.
-  ג. API: ממופה ל‑HTTP 400 עם קוד `MAX_SHELVES_REACHED`.
+-  א. אחרי הוספת 5 מדפים, עוד קריאה ל‑`POST /api/machines/{machineId}/shelves`:
+-  ב. Domain: `VendingMachine.AddShelf` בודק אם כמות המדפים הקיימת >= `MaxShelves` וזורק `MaxShelvesReachedException`.
+-  ג. API: ממופה ל‑HTTP 400 עם קוד `MAX_SHELVES_REACHED`.
 
 7. **ניסיון לטעון 18 בקבוקי מים על מדף עם קיבולת 10 → כישלון**
-   א. `quantity: 18` על מדף שקיבולתו 10.
-   ב. Domain: `Shelf.LoadProduct` מחשב את המלאי החדש ומוודא שלא חורג מ‑`Capacity`. במקרה של חריגה הוא זורק `ShelfCapacityExceededException`.
-   גץ. API: ממופה ל‑HTTP 400 עם קוד `SHELF_CAPACITY_EXCEEDED`.
+-   א. `quantity: 18` על מדף שקיבולתו 10.
+-   ב. Domain: `Shelf.LoadProduct` מחשב את המלאי החדש ומוודא שלא חורג מ‑`Capacity`. במקרה של חריגה הוא זורק `ShelfCapacityExceededException`.
+-   ג. API: ממופה ל‑HTTP 400 עם קוד `SHELF_CAPACITY_EXCEEDED`.
 
 ### טסטים (Unit Tests)
 
