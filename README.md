@@ -4,8 +4,9 @@
 
 ### מבנה הפתרון (Projects / Layers)
 
-- **VendingMachine.Domain**  
   שכבת ה‑Domain – ישויות וחוקי העסק:
+
+- **VendingMachine.Domain**  
   - `VendingMachine` (Aggregate Root)
   - `Shelf`
   - `Product`
@@ -18,8 +19,9 @@
     - `ProductNotFoundException`
     - `OutOfStockException`
 
-- **VendingMachine.Application**  
   שכבת האפליקציה (Use Cases):
+
+- **VendingMachine.Application**  
   -  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
   - `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
   - `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
@@ -58,10 +60,10 @@
 
   - ד.  Swagger / OpenAPI מופעל בדיבוג.
 
+  פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.
 
 
 - **VendingMachine.Tests**  
-  פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.
 
 ### איך מריצים
 
