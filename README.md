@@ -20,8 +20,9 @@
     - `OutOfStockException`
 
 
+
 - **VendingMachine.Application**
-    **שכבת האפליקציה (Use Cases):**
+-    **שכבת האפליקציה (Use Cases):**
 
   - א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
   - ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
