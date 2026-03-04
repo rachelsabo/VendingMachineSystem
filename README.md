@@ -19,19 +19,20 @@
     - `ProductNotFoundException`
     - `OutOfStockException`
 
-  שכבת האפליקציה (Use Cases):
 
-- **VendingMachine.Application**  
-  -  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
-  - `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
-  - `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
+- **VendingMachine.Application**
+    **שכבת האפליקציה (Use Cases):**
+
+  א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
+  ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
+  ג. `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
     - יצירת מכונת מכירה
     - הוספת מדף
     - טעינת מלאי
     - רכישת מוצר
 
 - **VendingMachine.Infrastructure**  
-  שכבת התשתית (Infrastructure):
+  **שכבת התשתית (Infrastructure):**
 
   - אין בסיס נתונים אמיתי, אין EF Core, ואין תלות חיצונית.
   - מימוש In‑Memory של `IVendingMachineRepository` עם `ConcurrentDictionary<Guid, VendingMachine>`.
@@ -39,11 +40,11 @@
 
 
 - **VendingMachine.Api**  
-  שכבת ה‑Web API (ASP.NET Core):
+  **שכבת ה‑Web API (ASP.NET Core):**
   
-  - א. `VendingMachinesController` – Controller , שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.:
+   א. `VendingMachinesController` – Controller , שכל האחריות העסקית עוברת אליו דרך `IVendingMachineService`.:
 
-  - ב. Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
+   ב. Middleware גלובלי לניהול שגיאות: `ExceptionHandlingMiddleware`, שמחזיר פורמט אחיד:
     ```json
     {
       "code": "ERROR_CODE",
@@ -51,16 +52,16 @@
     }
     ```
 
-  - ג. נקודות קצה (Endpoints):
+   ג. נקודות קצה (Endpoints):
     - `POST /api/machines` – יצירת מכונה
     - `GET  /api/machines/{machineId}` – שליפת מכונה
     - `POST /api/machines/{machineId}/shelves` – הוספת מדף
     - `POST /api/machines/{machineId}/shelves/{shelfId}/inventory` – טעינת מלאי למדף
     - `POST /api/machines/{machineId}/purchase` – רכישת מוצר
 
-  - ד.  Swagger / OpenAPI מופעל בדיבוג.
+   ד.  Swagger / OpenAPI מופעל בדיבוג.
 
-  פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.
+  **פרויקט טסטים (xUnit) עבור שכבת ה‑Domain בלבד.**
 
 
 - **VendingMachine.Tests**  
@@ -94,7 +95,7 @@
 ה‑Domain וה‑API תוכננו כך שיכסו את התרחישים מהתרגיל. יש גם טסט End‑to‑End (`EndToEnd_Scenarios_1_To_6`) בשכבת הטסטים שבודק אותם לוגית.
 
 1. **יצירת מכונת מכירה שתומכת עד 5 מדפים**
-   - API: `POST /api/machines`
+   א. API: `POST /api/machines`
      ```json
      {
        "name": "Main Lobby VM",
@@ -102,13 +103,13 @@
        "maxShelves": 5
      }
      ```
-   - Domain: קריאה ל‑`VendingMachineService.CreateVendingMachineAsync` שיוצר `VendingMachine` עם `MaxShelves = 5`.
+   ב. Domain: קריאה ל‑`VendingMachineService.CreateVendingMachineAsync` שיוצר `VendingMachine` עם `MaxShelves = 5`.
 
 2. **הוספת 3 מדפים: שתייה 10, חטיפים 20, שתייה 15**
    - נניח שני סוגי קטגוריות (מזוהים לפי Guid):
      - Drinks: `drinkCategoryId`
      - Snacks: `snackCategoryId`
-   - API: `POST /api/machines/{machineId}/shelves` שלוש פעמים:
+   - API: `POST /api/machines/{machineId}/shelves` :
      - מדף שתייה 1 (קיבולת 10):
        ```json
        { "productCategoryId": "<drinkCategoryId>", "capacity": 10 }
@@ -124,7 +125,7 @@
    - Domain: `VendingMachine.AddShelf` מוסיף מדפים עד `MaxShelves` ומוודא שלא חורגים ממנו.
 
 3. **טעינת 5 בקבוקי מים על מדף השתייה הראשון**
-   - API: `POST /api/machines/{machineId}/shelves/{shelfId}/inventory`
+   א.  API: `POST /api/machines/{machineId}/shelves/{shelfId}/inventory`
      ```json
      {
        "productId": "<waterProductId>",
@@ -133,22 +134,22 @@
        "quantity": 5
      }
      ```
-   - Domain: `VendingMachine.LoadInventory` → `Shelf.LoadProduct` מעדכן מלאי ומוודא קיבולת.
+   ב. Domain: `VendingMachine.LoadInventory` → `Shelf.LoadProduct` מעדכן מלאי ומוודא קיבולת.
 
 4. **ניסיון לטעון צ'יפס על מדף שתייה → כישלון**
-   - אותו Endpoint כמו בסעיף 3, אבל עם `productCategoryId = <snackCategoryId>`.
-   - Domain: `Shelf.ValidateProductCategory` זורק `InvalidProductCategoryException` אם הקטגוריה של המוצר לא תואמת את `ProductCategoryId` של המדף.
-   - API: ה‑Middleware ממפה את החריגה ל‑HTTP 400 עם קוד `INVALID_PRODUCT_CATEGORY`.
+   א. אותו Endpoint כמו בסעיף 3, אבל עם `productCategoryId = <snackCategoryId>`.
+   ב. Domain: `Shelf.ValidateProductCategory` זורק `InvalidProductCategoryException` אם הקטגוריה של המוצר לא תואמת את `ProductCategoryId` של המדף.
+   ג. API: ה‑Middleware ממפה את החריגה ל‑HTTP 400 עם קוד `INVALID_PRODUCT_CATEGORY`.
 
 5. **ניסיון להוסיף מדף שישי → כישלון**
-   - אחרי הוספת 5 מדפים, עוד קריאה ל‑`POST /api/machines/{machineId}/shelves`:
-   - Domain: `VendingMachine.AddShelf` בודק אם כמות המדפים הקיימת >= `MaxShelves` וזורק `MaxShelvesReachedException`.
-   - API: ממופה ל‑HTTP 400 עם קוד `MAX_SHELVES_REACHED`.
+  א. אחרי הוספת 5 מדפים, עוד קריאה ל‑`POST /api/machines/{machineId}/shelves`:
+  ב. Domain: `VendingMachine.AddShelf` בודק אם כמות המדפים הקיימת >= `MaxShelves` וזורק `MaxShelvesReachedException`.
+  ג. API: ממופה ל‑HTTP 400 עם קוד `MAX_SHELVES_REACHED`.
 
-6. **ניסיון לטעון 18 בקבוקי מים על מדף עם קיבולת 10 → כישלון**
-   - `quantity: 18` על מדף שקיבולתו 10.
-   - Domain: `Shelf.LoadProduct` מחשב את המלאי החדש ומוודא שלא חורג מ‑`Capacity`. במקרה של חריגה הוא זורק `ShelfCapacityExceededException`.
-   - API: ממופה ל‑HTTP 400 עם קוד `SHELF_CAPACITY_EXCEEDED`.
+7. **ניסיון לטעון 18 בקבוקי מים על מדף עם קיבולת 10 → כישלון**
+   א. `quantity: 18` על מדף שקיבולתו 10.
+   ב. Domain: `Shelf.LoadProduct` מחשב את המלאי החדש ומוודא שלא חורג מ‑`Capacity`. במקרה של חריגה הוא זורק `ShelfCapacityExceededException`.
+   גץ. API: ממופה ל‑HTTP 400 עם קוד `SHELF_CAPACITY_EXCEEDED`.
 
 ### טסטים (Unit Tests)
 
@@ -171,29 +172,24 @@ dotnet test
 
 מריצה את כל הטסטים, וכולם עוברים (נכון למצב הנוכחי של הקוד).
 
-### הנחות ושאלות (כפי שנתבקש בתרגיל)
+### הנחות ושאלות
 
 - **קטגוריות מוצרים (ProductCategory)**
   - הנחה: קטגוריות מיוצגות באמצעות `Guid` (`ProductCategoryId`) בלבד, בלי טבלה/ישות נפרדת שנשמרת בבסיס נתונים.
-  - שאלה: האם בגרסת Production נרצה API לניהול קטגוריות (CRUD מלא), או שקטגוריות מנוהלות במקום אחר במערכת המשחק?
 
 - **מוצרים ומחירים**
   - הנחה: מוצר מכיל רק `Id`, `Name`, `ProductCategoryId`. אין מחיר, מטבע, הנחות וכו', כי התרגיל מציין שאין צורך לטפל בסליקה.
-  - שאלה: איך תרצו לייצג מחירים, מטבעות שונים, והאם יש הפרדה בין מחיר "לשחקן" למחיר "פנימי" במשחק?
 
 - **התנהגות תחת עומס / Concurrency**
   - הנחה: מאחר ושכבת התשתית היא In‑Memory בלבד, לא בוצע טיפול מפורט ב‑Concurrency מעבר למה ש‑`ConcurrentDictionary` נותן.
-  - שאלה: במערכת אמיתית – האם נדרש מנגנון Concurrency (optimistic / pessimistic), במיוחד סביב רכישות במקביל מאותה מכונה?
 
 - **שגיאות ולוקליזציה**
   - הנחה: קודי השגיאה (`PRODUCT_NOT_FOUND`, `MAX_SHELVES_REACHED` וכו') הם חלק מה‑Contract, והודעות הטקסט כרגע באנגלית בלבד.
-  - שאלה: האם צריך לתמוך בשפות נוספות (למשל עברית/אנגלית לפי Header) והאם קוד השגיאה הוא חלק מ‑API ציבורי יציב?
 
 - **אבטחה / Admins**
   - הנחה: האפליקציה לא כוללת Authentication/Authorization; כל הקריאות נתפסות כאילו מגיעות מ‑Admin מורשה.
-  - שאלה: האם בעתיד תרצו להוסיף OAuth/JWT או אינטגרציה עם מערכת זהויות קיימת של המשחק?
 
-- **Persistence אמיתי**
+- **שמירת זיכרון**
   - הנחה: In‑Memory מספק לצורך התרגיל. המעבר ל‑DB אמיתי יתבצע ע"י מימוש חדש של `IVendingMachineRepository` בשכבת Infrastructure, בלי לשנות את ה‑Domain או ה‑Application.
 
 ### התאמה לקריטריונים של התרגיל
