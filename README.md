@@ -69,7 +69,7 @@
 
 ### איך מריצים
 
--1. **שחזור תלויות, Build והרצת טסטים**
+1. **שחזור תלויות, Build והרצת טסטים**
 
    ```bash
    dotnet restore
@@ -77,13 +77,13 @@
    dotnet test
    ```
 
--2. **הרצת ה‑API**
+2. **הרצת ה‑API**
 
    ```bash
    dotnet run --project VendingMachine.Api
    ```
 
--3. **פתיחת Swagger UI**
+3. **פתיחת Swagger UI**
 
    - ה‑API מאזין ל‑URL ולפורט המוגדרים ב‑`VendingMachine.Api/Properties/launchSettings.json` (לדוגמה `http://localhost:5088`).
    - כתובת Swagger (בדוגמה לעיל):
