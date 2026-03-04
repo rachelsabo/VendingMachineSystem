@@ -22,11 +22,11 @@
 
 
 - **VendingMachine.Application**
--    **שכבת האפליקציה (Use Cases):**
+    **שכבת האפליקציה (Use Cases):**
 
-  - א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
-  - ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
-  - ג. `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
+   א.  DTOs: `VendingMachineDto`, `ShelfDto`, `ProductDto`
+   ב. `IVendingMachineRepository` – ממשק לריפוזיטורי (בלי תלות בהטמעה)
+   ג. `IVendingMachineService` + `VendingMachineService` – מימוש מקרי השימוש:
     - יצירת מכונת מכירה
     - הוספת מדף
     - טעינת מלאי
